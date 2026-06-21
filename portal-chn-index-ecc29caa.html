@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>轻触 · leyu 一角</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background-color: #f9fafc;
+      color: #1f2937;
+      line-height: 1.7;
+    }
+
+    /* 深色头图区 – 柔和渐变，压低视觉重心 */
+    .hero {
+      background: linear-gradient(145deg, #0e1726 0%, #1b2a41 100%);
+      padding: 4rem 1.5rem 5rem;
+      text-align: center;
+      color: #e5e9f0;
+    }
+
+    .hero-title {
+      font-size: 2.8rem;
+      font-weight: 400;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title span {
+      font-weight: 600;
+      color: #b1c5e0;
+    }
+
+    .hero-sub {
+      max-width: 600px;
+      margin: 1.5rem auto 0;
+      font-size: 1.1rem;
+      opacity: 0.82;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 1.2rem;
+    }
+
+    /* 导航 – 半透明悬浮感, 置于头图内 */
+    .nav {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      padding: 0 1rem 0.8rem;
+      flex-wrap: wrap;
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(3px);
+      margin-top: -2.5rem;
+      margin-bottom: 1.5rem;
+      border-radius: 0 0 40px 40px;
+    }
+
+    .nav a {
+      color: #d1dbea;
+      text-decoration: none;
+      font-size: 0.95rem;
+      padding: 0.2rem 0;
+      border-bottom: 1px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .nav a:hover {
+      color: white;
+      border-bottom-color: #809bc0;
+    }
+
+    /* 正文区 – 浅色背景，干净留白 */
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 5rem;
+    }
+
+    .intro-block {
+      margin-bottom: 4rem;
+    }
+
+    .intro-block h2 {
+      font-weight: 400;
+      font-size: 2rem;
+      border-left: 4px solid #2e4b6c;
+      padding-left: 1rem;
+      margin-bottom: 1.2rem;
+      color: #161e2b;
+    }
+
+    .intro-block p {
+      max-width: 700px;
+      margin-bottom: 1rem;
+      color: #374151;
+    }
+
+    /* 强调色链接 */
+    a.highlight-link {
+      color: #1d4e7a;
+      text-decoration: underline 1px dashed #1d4e7a;
+      text-underline-offset: 3px;
+      transition: color 0.15s, background 0.15s;
+      font-weight: 500;
+    }
+
+    a.highlight-link:hover {
+      color: #0b2b49;
+      background: #e1e8f2;
+      text-decoration: underline 1.5px solid #0b2b49;
+    }
+
+    /* 三个场景模块 – 卡片网格，轻阴影，可变宽度 */
+    .scene-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.8rem;
+      margin: 3rem 0 1.5rem;
+    }
+
+    .scene-card {
+      background: #ffffff;
+      padding: 2rem 1.5rem 1.8rem;
+      border-radius: 28px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.03), 0 2px 6px rgba(0, 0, 0, 0.02);
+      transition: transform 0.18s, box-shadow 0.2s;
+      border: 1px solid #eef2f8;
+    }
+
+    .scene-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 26px rgba(0, 0, 0, 0.04);
+      border-color: #d4dfec;
+    }
+
+    .scene-card h3 {
+      font-weight: 500;
+      font-size: 1.4rem;
+      margin-bottom: 0.75rem;
+      color: #1f2b3c;
+    }
+
+    .scene-card p {
+      font-size: 0.95rem;
+      color: #3a4a5e;
+    }
+
+    .scene-card .emoji-deco {
+      font-size: 1.8rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    /* 常见说明 – 简洁摘要，无折叠 */
+    .faq-preview {
+      background: #f2f6fd;
+      padding: 2rem 2rem 2.5rem;
+      border-radius: 40px;
+      margin: 3.5rem 0;
+    }
+
+    .faq-preview h3 {
+      font-weight: 400;
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      color: #0c1a2b;
+    }
+
+    .faq-item {
+      display: flex;
+      flex-direction: column;
+      margin: 1rem 0;
+    }
+
+    .faq-question {
+      font-weight: 500;
+      color: #0c1f35;
+      margin-bottom: 0.15rem;
+    }
+
+    .faq-answer {
+      color: #3d4c61;
+      font-size: 0.95rem;
+    }
+
+    .faq-answer a.highlight-link {
+      font-weight: 400;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #dde3ed;
+      margin: 1.2rem 0;
+    }
+
+    .footnote {
+      font-size: 0.9rem;
+      color: #546a82;
+      margin-top: 2.5rem;
+      border-top: 1px solid #e0e7f0;
+      padding-top: 2rem;
+      text-align: center;
+    }
+
+    .footnote a.highlight-link {
+      text-decoration: none;
+      border-bottom: 1px dotted #1d4e7a;
+    }
+
+    /* 响应式保留细节 */
+    @media (max-width: 640px) {
+      .hero-title {
+        font-size: 2rem;
+      }
+      .nav {
+        gap: 1.5rem;
+        font-size: 0.9rem;
+        margin-top: -1.5rem;
+      }
+      .intro-block h2 {
+        font-size: 1.6rem;
+      }
+      .faq-preview {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 深色头图 + 导航 -->
+  <header class="hero">
+    <h1 class="hero-title"><span>leyu</span> · 一处安静的角落</h1>
+    <nav class="nav">
+      <a href="#intro">叙</a>
+      <a href="#scenes">场景</a>
+      <a href="#faq">说明</a>
+      <a href="https://portal-chn-leyu.com" target="_blank" rel="noopener noreferrer">leyu</a>
+    </nav>
+    <div class="hero-sub">
+      有些界面不张扬，却总在需要时恰好出现。
+    </div>
+  </header>
+
+  <!-- 正文区域 -->
+  <main class="container">
+
+    <!-- 核心介绍：自然叙述 -->
+    <section id="intro" class="intro-block">
+      <h2>从一处标记开始</h2>
+      <p>
+        几个月前，无意间保存了一个叫 <a href="https://portal-chn-leyu.com" class="highlight-link">leyu</a> 的链接。
+        当时只是觉得名字简短，点进去发现是一个没有冗余导航、没有弹窗的页面。后来偶尔再打开，
+        依然保持着那种干净的观感——不催促、不强推，像一本可以随意翻到某一页的册子。
+      </p>
+      <p>
+        这种体验让我想到：或许数字化工具不必时刻证明自己有用。它只需要在某个时刻，
+        恰好承载你想做的事。leyu 传达给我的，大概就是这种分寸感。
+      </p>
+    </section>
+
+    <!-- 三个场景模块 -->
+    <section id="scenes">
+      <h2 style="font-weight:400; font-size:1.8rem; margin-bottom:0.5rem; color:#161e2b;">几种可能的画面</h2>
+      <div class="scene-grid">
+        <div class="scene-card">
+          <span class="emoji-deco">📋</span>
+          <h3>查阅与备忘</h3>
+          <p>打开 <a href="https://portal-chn-leyu.com" class="highlight-link">leyu</a>，页面里信息层级清晰，适合快速浏览或核对。
+          </p>
+        </div>
+        <div class="scene-card">
+          <span class="emoji-deco">🪴</span>
+          <h3>短时停留</h3>
+          <p>不想被推送干扰时，把它当作一个不用登录、没有红点的安静站点，待几分钟再离开。</p>
+        </div>
+        <div class="scene-card">
+          <span class="emoji-deco">🔗</span>
+          <h3>随手转存</h3>
+          <p>偶尔截取其中某段内容作为参考，或把链接分享给朋友：“你可以看一下 leyu 这个页面”。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 常见说明 / FAQ摘要 -->
+    <section id="faq" class="faq-preview">
+      <h3>一些你可能想知道的</h3>
+      <div class="faq-item">
+        <span class="faq-question">leyu 是做什么的？</span>
+        <span class="faq-answer">它是一个门户式的页面，聚合了一些基本功能与信息入口。你可以直接通过 <a href="https://portal-chn-leyu.com" class="highlight-link">leyu</a> 体验它的结构。</span>
+      </div>
+      <div class="faq-item">
+        <span class="faq-question">是否需要注册或付费？</span>
+        <span class="faq-answer">从我目前的接触来看，不需要。页面本身是开放的，没有强制注册环节。</span>
+      </div>
+      <div class="faq-item">
+        <span class="faq-question">移动端访问体验如何？</span>
+        <span class="faq-answer">适配做得不错，在手机浏览器上排版没有变形，按钮和链接也保留了合理的点击区域。</span>
+      </div>
+      <hr>
+      <p style="font-size:0.95rem; opacity:0.8;">* 以上基于个人使用感受，具体以实际页面为准。</p>
+    </section>
+
+    <!-- 一个带链接的句子，自然嵌入 -->
+    <div style="margin:2rem 0 1rem;">
+      <p>
+        如果你也好奇，不妨直接前往 <a href="https://portal-chn-leyu.com" class="highlight-link">leyu</a> 看看它现在的模样。
+      </p>
+    </div>
+
+    <!-- 底部脚注 -->
+    <footer class="footnote">
+      <span>一个轻量导航式的介绍页 · 记录于某次浏览之后</span><br>
+      <span style="opacity:0.6;">不预设，不打扰</span>
+    </footer>
+
+  </main>
+</body>
+</html>
