@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>爱游戏体育 · 信息概览与指引</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: linear-gradient(145deg, #fae8d4 0%, #fce2c1 40%, #fbd5a0 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+    }
+
+    .wrapper {
+      max-width: 960px;
+      width: 100%;
+    }
+
+    /* 主卡片 —— 知识库目录式布局 */
+    .card {
+      background: #ffffff;
+      border-radius: 36px;
+      box-shadow: 0 18px 30px -10px rgba(170, 100, 30, 0.18), 0 8px 16px rgba(0, 0, 0, 0.04);
+      padding: 2.8rem 2.5rem;
+      transition: box-shadow 0.2s ease;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 2rem 1.5rem;
+        border-radius: 28px;
+      }
+    }
+
+    /* Hero 区 —— 克制说明 */
+    .hero {
+      margin-bottom: 2.2rem;
+    }
+
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: #442a14;
+      position: relative;
+      display: inline-block;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero h1::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 48px;
+      height: 3px;
+      background: #eab882;
+      border-radius: 4px;
+    }
+
+    .subhead {
+      font-size: 1rem;
+      color: #6d4c2b;
+      line-height: 1.6;
+      margin-top: 0.75rem;
+      max-width: 80%;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 1.7rem;
+      }
+      .subhead {
+        max-width: 100%;
+      }
+    }
+
+    /* 目录感区块 —— 网格组织 */
+    .knowledge-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0 2.5rem 0;
+    }
+
+    .info-block {
+      background: #fcf6ee;
+      border-radius: 24px;
+      padding: 1.5rem 1.2rem;
+      transition: background 0.2s;
+      border: 1px solid #eddac3;
+    }
+
+    .info-block h3 {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: #4d301a;
+      margin-bottom: 0.7rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .info-block p {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: #553c27;
+    }
+
+    .info-block .tag {
+      display: inline-block;
+      background: #ecc9a7;
+      color: #3c2514;
+      border-radius: 99px;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      margin-top: 0.5rem;
+    }
+
+    /* 说明区 + 提示区 —— 并列双栏 */
+    .dual-panel {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+      margin: 2rem 0 1.8rem 0;
+    }
+
+    .panel-item {
+      flex: 1 1 200px;
+      background: #f9efe4;
+      border-radius: 24px;
+      padding: 1.4rem 1.3rem;
+      border-left: 4px solid #dbb38a;
+    }
+
+    .panel-item h4 {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #452e1b;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .panel-item p,
+    .panel-item li {
+      font-size: 0.9rem;
+      color: #4d3722;
+      line-height: 1.6;
+    }
+
+    .panel-item ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .panel-item ul li::before {
+      content: '·';
+      color: #b2814e;
+      font-weight: bold;
+      display: inline-block;
+      width: 1rem;
+    }
+
+    /* 相关信息区：FAQ 摘要风格 */
+    .faq-summary {
+      background: #fcf3e9;
+      border-radius: 28px;
+      padding: 1.6rem 1.8rem;
+      margin: 2rem 0 1.8rem 0;
+      border: 1px solid #f0d9bf;
+    }
+
+    .faq-summary h2 {
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: #3f2a18;
+      margin-bottom: 1.2rem;
+    }
+
+    .faq-item {
+      margin-bottom: 1rem;
+      border-bottom: 1px dashed #e3cbb3;
+      padding-bottom: 0.8rem;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .faq-question {
+      font-weight: 500;
+      color: #4b311c;
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .faq-answer {
+      color: #61472e;
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    .faq-answer a {
+      color: #8a5a2e;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      text-decoration-thickness: 1px;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+
+    .faq-answer a:hover {
+      color: #54341a;
+    }
+
+    /* 圆角按钮感链接——自然嵌入情境 */
+    .link-button-wrapper {
+      text-align: right;
+      margin-top: 1rem;
+    }
+
+    .inline-link {
+      color: #7b4d26;
+      font-weight: 500;
+      text-decoration: none;
+      background: #f2e2d0;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      transition: all 0.15s;
+      display: inline-block;
+      border: 1px solid transparent;
+    }
+
+    .inline-link:hover {
+      background: #e7cfb6;
+      border-color: #c9a67c;
+    }
+
+    /* 脚注 */
+    .footnote {
+      margin-top: 2.6rem;
+      font-size: 0.8rem;
+      color: #73583c;
+      text-align: center;
+      border-top: 1px solid #edd7c1;
+      padding-top: 1.6rem;
+      letter-spacing: 0.2px;
+    }
+
+    .footnote span {
+      background: #f1dfcd;
+      padding: 0.2rem 0.8rem;
+      border-radius: 40px;
+    }
+
+    /* 响应式微调 */
+    @media (max-width: 480px) {
+      .knowledge-grid {
+        grid-template-columns: 1fr;
+      }
+      .dual-panel {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="card">
+      <!-- Hero: 站点用途快速识别 -->
+      <div class="hero">
+        <h1>爱游戏体育 · 信息索引</h1>
+        <div class="subhead">
+          如果你曾好奇这个网站具体提供什么、适合哪类场景，下面几组内容可以帮你快速建立认知。
+        </div>
+      </div>
+
+      <!-- 知识库入口式：目录感布局 -->
+      <div class="knowledge-grid">
+        <div class="info-block">
+          <h3>📋 平台属性</h3>
+          <p>以体育资讯与互动服务为主，整合赛事动态、数据参考及社区讨论内容。</p>
+          <span class="tag">Sports · Info</span>
+        </div>
+        <div class="info-block">
+          <h3>🎯 受众定位</h3>
+          <p>面向对体育赛事有日常关注习惯的用户，提供信息聚合和轻量交流空间。</p>
+          <span class="tag">Audience · General</span>
+        </div>
+        <div class="info-block">
+          <h3>⚙️ 功能侧重</h3>
+          <p>赛事日历、比分追踪、话题浏览及个性化面板设置，结构偏向工具型。</p>
+          <span class="tag">Features · Dashboard</span>
+        </div>
+      </div>
+
+      <!-- 说明区 + 提示区 并列 -->
+      <div class="dual-panel">
+        <div class="panel-item">
+          <h4>📌 说明区</h4>
+          <p>该站点并非单一内容输出，而是集成多个信息模块。如果你是第一次接触，可以从「赛事浏览」或「趋势话题」开始尝试，逐步熟悉面板布局。所有公开内容均基于平台规则展示。</p>
+        </div>
+        <div class="panel-item">
+          <h4>💡 提示区</h4>
+          <ul>
+            <li>部分板块需要登录后使用完整功能</li>
+            <li>数据更新频率依联赛或赛事不同而有差异</li>
+            <li>建议使用现代浏览器访问，体验更佳</li>
+            <li>若遇到加载问题，可尝试清除缓存</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 相关信息区：FAQ 摘要 + 自然链接 -->
+      <div class="faq-summary">
+        <h2>📖 相关信息 · 常见疑问</h2>
+        <div class="faq-item">
+          <div class="faq-question">这个网站主要用来做什么？</div>
+          <div class="faq-answer">
+            它定位为体育信息面板，聚合赛事数据与用户讨论。如需进一步了解全貌，可以前往 <a href="https://panel-index-ayx.com">爱游戏体育</a> 直接浏览。
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">内容来源可靠吗？</div>
+          <div class="faq-answer">
+            平台所展示信息均来自公开接口或授权数据，官方维护团队会定期核对。涉及用户生成内容的部分，平台有相应管理规范。
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">是否需要注册？</div>
+          <div class="faq-answer">
+            浏览基础信息无需注册；若想使用收藏、评论或个人面板定制，则需要创建账户。<a href="https://panel-index-ayx.com">爱游戏体育</a> 提供完整的注册引导流程。
+          </div>
+        </div>
+      </div>
+
+      <!-- 细微的链接按钮感装饰（非强制，但丰富层次） -->
+      <div class="link-button-wrapper">
+        <a href="https://panel-index-ayx.com" class="inline-link">爱游戏体育</a>
+      </div>
+
+      <div class="footnote">
+        <span>知识库入口 · 概览版本</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
